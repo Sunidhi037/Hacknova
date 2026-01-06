@@ -1,19 +1,34 @@
-/* --- Mobile Menu Logic (Global) --- */
+// EcoPulse Core Utilities
+// Contains centralized functionality for all pages
+
+// Function to initialize page-specific features
+window.EcoPulse = window.EcoPulse || {};
+
+// Initialize year in footer
+EcoPulse.initYearFooter = () => {
+    const yearSpan = document.getElementById("year");
+    if (yearSpan) {
+        yearSpan.textContent = new Date().getFullYear();
+    }
+};
+
+// Initialize all core utilities
 document.addEventListener("DOMContentLoaded", () => {
-    const menuBtn = document.getElementById("mobile-menu-btn");
-    const mobileMenu = document.getElementById("mobile-menu");
-
-    if (menuBtn && mobileMenu) {
-        menuBtn.addEventListener("click", (e) => {
-            e.stopPropagation(); // Prevents clicks from bubbling up
-            mobileMenu.classList.toggle("hidden");
-        });
-
-        // Optional: Close menu when clicking outside
-        document.addEventListener("click", (e) => {
-            if (!menuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
-                mobileMenu.classList.add("hidden");
-            }
-        });
+    // Initialize year in footer
+    EcoPulse.initYearFooter();
+    
+    // Initialize mobile menu if it exists
+    if (typeof EcoPulse.initMobileMenu === 'function') {
+        EcoPulse.initMobileMenu();
+    }
+    
+    // Initialize scroll to top if it exists
+    if (typeof EcoPulse.initScrollToTop === 'function') {
+        EcoPulse.initScrollToTop();
+    }
+    
+    // Initialize scroll reveal if it exists
+    if (typeof EcoPulse.initScrollReveal === 'function') {
+        EcoPulse.initScrollReveal();
     }
 });
